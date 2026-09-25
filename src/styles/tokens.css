@@ -1,0 +1,67 @@
+:root {
+  --void: #07080b;
+  --carbon: #0d0f14;
+  --steel: #141821;
+  --slate: #1c212c;
+
+  --line-1: #1d222d;
+  --line-2: #2a3140;
+  --line-3: #3c4557;
+
+  --bone: #f4f1ea;
+  --text-2: #9aa2b1;
+  --text-3: #626b7c;
+
+  --blaze: #ff3d23;
+  --blaze-hot: #ff6a3d;
+  --blaze-deep: #c41f0c;
+  --blaze-wash: rgba(255, 61, 35, 0.12);
+
+  --gold: #ffc64b;
+  --win: #4fd38a;
+  --loss: #ff5a5a;
+
+  --font-display: 'Big Shoulders Display', 'Haettenschweiler', 'Arial Narrow', sans-serif;
+  --font-sans: 'Barlow', 'Helvetica Neue', Arial, sans-serif;
+  --font-mono: 'Chivo Mono', 'SF Mono', Menlo, monospace;
+
+  --fs-mono: 0.6875rem;
+  --fs-body: 0.9375rem;
+  --fs-lead: clamp(1.0625rem, 0.95rem + 0.5vw, 1.3125rem);
+  --fs-h3: clamp(1.5rem, 1.2rem + 1vw, 2.125rem);
+  --fs-h2: clamp(2.75rem, 1.6rem + 4.6vw, 6rem);
+  --fs-h1: clamp(3.4rem, 1.1rem + 8.8vw, 10.5rem);
+
+  --track-mono: 0.16em;
+
+  --gutter: clamp(1.15rem, 0.6rem + 2.4vw, 3.5rem);
+  --max: 1520px;
+  --rail: 40px;
+
+  --cut-btn: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  --cut-sm: polygon(0 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%);
+  --cut-md: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+  --cut-tag: polygon(0 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%);
+
+  --hazard: repeating-linear-gradient(
+    -45deg,
+    var(--blaze) 0 7px,
+    transparent 7px 14px
+  );
+
+  --ease: cubic-bezier(0.16, 0.84, 0.44, 1);
+  --dur: 300ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur: 1ms;
+  }
+}

@@ -1,0 +1,33 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function validTeam() {
+      return request.resource.data.name is string
+        && request.resource.data.name.size() >= 2
+        && request.resource.data.name.size() <= 40
+        && request.resource.data.tag is string
+        && request.resource.data.tag.size() >= 2
+        && request.resource.data.tag.size() <= 5
+        && request.resource.data.players is list
+        && request.resource.data.players.size() == 5;
+    }
+
+    match /teams/{teamId} {
+      allow read: if true;
+      allow create, update: if validTeam();
+      allow delete: if true;
+    }
+
+    match /fixtures/{fixtureId} {
+      allow read: if true;
+      allow write: if true;
+    }
+
+    match /meta/{docId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

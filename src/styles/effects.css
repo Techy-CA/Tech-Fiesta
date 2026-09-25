@@ -1,0 +1,332 @@
+.fx-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+  background: linear-gradient(90deg, var(--blaze-deep), var(--blaze), var(--gold));
+  z-index: 200;
+  pointer-events: none;
+}
+
+.fx-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 600ms var(--ease);
+  background: radial-gradient(
+    380px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(255, 61, 35, 0.09),
+    transparent 62%
+  );
+}
+
+.fx-spotlight[data-active='true'] {
+  opacity: 1;
+}
+
+.fx-grain {
+  position: fixed;
+  inset: -100%;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 900ms steps(4) infinite;
+}
+
+@keyframes grain {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-3%, 2%);
+  }
+  50% {
+    transform: translate(2%, -3%);
+  }
+  75% {
+    transform: translate(-2%, -2%);
+  }
+  100% {
+    transform: translate(3%, 3%);
+  }
+}
+
+.fx-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 9996;
+  pointer-events: none;
+  background: radial-gradient(ellipse 120% 96% at 50% 44%, transparent 62%, rgba(0, 0, 0, 0.46));
+}
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
+  clip-path: inset(0 100% 0 0);
+  transition:
+    opacity 780ms var(--ease),
+    transform 780ms var(--ease),
+    clip-path 900ms var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+}
+
+.reveal--up {
+  transform: translate3d(0, 54px, 0);
+  clip-path: none;
+}
+
+.reveal--scale {
+  clip-path: none;
+  transform: scale(0.94) translate3d(0, 30px, 0);
+}
+
+.reveal[data-reveal-done='true'] {
+  opacity: 1;
+  transform: none;
+  clip-path: none;
+  transition: none;
+}
+
+.reveal--scale[data-visible='true'] {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal--up,
+  .reveal--scale {
+    opacity: 1;
+    transform: none;
+    clip-path: none;
+    transition: none;
+  }
+
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.glow--blaze {
+  background: radial-gradient(circle, rgba(255, 61, 35, 0.46), transparent 68%);
+}
+
+.glow--deep {
+  background: radial-gradient(circle, rgba(196, 31, 12, 0.34), transparent 70%);
+}
+
+.glow--gold {
+  background: radial-gradient(circle, rgba(255, 198, 75, 0.2), transparent 70%);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translate3d(3%, -4%, 0) scale(1.14);
+    opacity: 1;
+  }
+}
+
+.glow--anim {
+  animation: breathe 11s var(--ease) infinite;
+}
+
+.glow--anim-slow {
+  animation: breathe 17s var(--ease) infinite reverse;
+}
+
+.floor {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 55%;
+  pointer-events: none;
+  perspective: 340px;
+  overflow: hidden;
+  mask-image: linear-gradient(to top, #000 4%, transparent 92%);
+}
+
+.floor__grid {
+  position: absolute;
+  inset: -60% -60% -30% -60%;
+  transform: rotateX(72deg);
+  transform-origin: 50% 100%;
+  background-image:
+    linear-gradient(rgba(255, 61, 35, 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.09) 1px, transparent 1px);
+  background-size: 100px 64px;
+  animation: floorRun 4.5s linear infinite;
+}
+
+@keyframes floorRun {
+  to {
+    background-position: 0 64px, 0 0;
+  }
+}
+
+.embers {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.slash {
+  position: relative;
+  overflow: hidden;
+}
+
+.slash::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -140%;
+  width: 60%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.16), transparent);
+  transform: skewX(-22deg);
+  transition: left 620ms var(--ease);
+}
+
+.slash:hover::after {
+  left: 160%;
+}
+
+@keyframes sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.champ__figure {
+  animation: champFloat 7s var(--ease) infinite;
+}
+
+@keyframes champFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.champ__halo {
+  transform-origin: 300px 300px;
+  animation: champHalo 8s var(--ease) infinite;
+}
+
+@keyframes champHalo {
+  0%,
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.09);
+  }
+}
+
+.champ__visor {
+  filter: drop-shadow(0 0 7px #ff3d23);
+  animation: champVisor 3.6s var(--ease) infinite;
+}
+
+@keyframes champVisor {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.champ__gleam {
+  animation: champGleam 6s var(--ease) infinite;
+}
+
+@keyframes champGleam {
+  0%,
+  58% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(1200px);
+  }
+}
+
+.champ__impact {
+  transform-origin: 300px 882px;
+  animation: champImpact 4.4s var(--ease) infinite;
+}
+
+@keyframes champImpact {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scaleX(1.12);
+  }
+}
+
+.champ__cracks {
+  animation: champVisor 4.4s var(--ease) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .champ__figure,
+  .champ__halo,
+  .champ__visor,
+  .champ__gleam,
+  .champ__impact,
+  .champ__cracks {
+    animation: none;
+  }
+
+}
+
+
+.ribbons {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0.85;
+  mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ribbons {
+    display: none;
+  }
+}
