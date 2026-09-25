@@ -137,9 +137,9 @@ rewrite:
 ```bash
 npm run build
 firebase deploy --only hosting
-
-built by chinmay
 ```
 
 Any static host works. If you deploy somewhere other than Firebase, make sure unknown paths rewrite
 to `index.html` so client side routing resolves.
+
+built by chinmay!
